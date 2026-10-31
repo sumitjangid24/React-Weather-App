@@ -1,8 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
-import cloudsimg from "../Images/cloudsimg.svg"
-import Rain from "../Images/Rain.svg"
-import Sunny from "../Images/Sunny.svg"
+import { useState } from 'react'; import cloud from "../images/cloud.png";
+import mist from "../images/mist.png";
+import cloudy from "../images/cloudy.png";
+import rainy from "../images/rainy.png";
+import snowy from "../images/snowy.png";
+import sunny from "../images/sunny.png";
+import thunderstorm from "../images/thunderstorm.png";
+
 const WeatherApp = () => {
     const API = "https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}"
     const API_Key = "f3441a6fa573150fef79002a8338cfdf"
@@ -79,17 +83,31 @@ const WeatherApp = () => {
 
                         <div className="flex items-center justify-center gap-4 my-6">
 
+
+
                             <img
                                 src={
-                                    Data.weather[0].main === "Clouds" ? cloudsimg :
-                                        Data.weather[0].main === "Rain" ||
-                                            Data.weather[0].main === "Drizzle" ? Rain :
-                                            Data.weather[0].main === "Clear" ? Sunny :
-                                                cloudsimg
+                                    Data.weather[0].main === "Clear"
+                                        ? sunny
+                                        : Data.weather[0].main === "Clouds"
+                                            ? cloudy
+                                            : Data.weather[0].main === "Rain" ||
+                                                Data.weather[0].main === "Drizzle"
+                                                ? rainy
+                                                : Data.weather[0].main === "Thunderstorm"
+                                                    ? thunderstorm
+                                                    : Data.weather[0].main === "Snow"
+                                                        ? snowy
+                                                        : Data.weather[0].main === "Mist" ||
+                                                            Data.weather[0].main === "Fog" ||
+                                                            Data.weather[0].main === "Haze"
+                                                            ? mist
+                                                            : cloud
                                 }
-                                alt="Weather"
+                                alt={Data.weather[0].main}
                                 className="w-30 h-30 object-contain"
                             />
+
 
                             <div className="text-center">
 
@@ -138,11 +156,7 @@ const WeatherApp = () => {
                     </div>
                 )}
 
-                {/* Footer */}
 
-                <p className="text-center text-blue-300/60 text-sm mt-6">
-                    Weather data powered by OpenWeatherMap
-                </p>
 
             </div>
 
